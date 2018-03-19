@@ -76,6 +76,8 @@ function drop(e) {
     var centerx = canvas.width / 2;
     var centery = canvas.height / 2;
     var l = w * h;
+    ctx.moveTo(0,0)
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     for (var i = 0; i < l; i++) {
         // get color of pixel
         var r =  imgPixels.data[i*4]; // Red
@@ -84,31 +86,25 @@ function drop(e) {
         var a =  imgPixels.data[i*4+3]; // Alpha
         var avg = Math.round(r * 0.2126 + g * 0.7152 + b * 0.0722);
 
-        // imgPixels.data[i*4]=avg;
-
-        // imgPixels.data[i*4+1]=avg;
-        // imgPixels.data[i*4+2]=avg;
-    
-// var tmp=(avg/255)*10;
-ctx.moveTo(0,0)
-ctx.clearRect(0, 0, canvas.width, canvas.height);
-let y = parseInt(i / w, 10);
-let x = i - y * w;
-arr[x]=arr[x]||[]
-arr[x][y]=avg;
+         let y = parseInt(i / w, 10);
+        let x = i - y * w;
+// arr[x]=arr[x]||[]
+// arr[x][y]=avg;
+        if(x%3==0&&y%4==0)
+        Draw(x,y,avg,ctx)
     }
 //   console.log(arr)
-    for(let x=0;x<arr.length;x++){
-    for(let y=0;y<arr[0].length;y++){
-    //  ctx.strokeStyle='rgb('+ arr[x][y]+','+ arr[x][y]+','+ arr[x][y]+')'
-    // 
+//     for(let x=0;x<arr.length;x+3){
+//     for(let y=0;y<arr[0].length;y+4){
+//     //  ctx.strokeStyle='rgb('+ arr[x][y]+','+ arr[x][y]+','+ arr[x][y]+')'
+//     // 
 
-    if(x%3==0&&y%4==0)
-    Draw(x,y,arr[x][y],ctx)
+    
+//     Draw(x,y,arr[x][y],ctx)
     
    
-  }
-    }
+//   }
+//     }
 
 
 // var a=b=1
@@ -153,17 +149,25 @@ function Draw(x,y,a,ctx)
     // var d= Math.random()*10;
     var t=((a/255)*10);
 
+    var arc_s=.5*Math.PI;
+    var arc_end = .75*Math.PI;
+    var circle_start= 0;
+    var circle_end= 2*Math.PI;
+
+
+   var start =circle_start;
+    var end =circle_end;
 if(a/255<.5)
   
-{ctx.strokeStyle='black';
+{ctx.strokeStyle='black'
 ctx.lineWidth= .5;
 
-ctx.arc(x+Math.random()*10,y+Math.random()*10,10,.5*Math.PI,Math.PI);
+ctx.arc(x+Math.random()*10,y+Math.random()*10,5+Math.random()*10, start,end);
 }
     else{
-    // ctx.strokeStyle='white';
-    // ctx.lineWidth= 10-t;
-    // ctx.arc(x,y,2,0,2*Math.PI);
+    // ctx.strokeStyle='black';
+    // ctx.lineWidth= 1;
+    // ctx.arc(x,y,10,arc_s,arc_end);
 
    
     }
